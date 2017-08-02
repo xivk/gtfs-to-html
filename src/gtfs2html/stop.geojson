@@ -1,0 +1,8 @@
+﻿    {
+      "type": "Feature",
+      "properties": {{properties}},
+      "geometry": {
+        "type": "Point",
+        "coordinates": {location}
+      }
+    }

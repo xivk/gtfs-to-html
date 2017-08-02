@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GTFS2HTML": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\work\\data\\gtfs\\delijn-latest-shapes-new C:\\work\\osmbe\\data\\gtfs\\delijn"
+    }
+  }
+}
