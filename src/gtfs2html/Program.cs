@@ -22,7 +22,12 @@ namespace GTFS2HTML
                 feed = reader.Read(sources);
             }
 
-            var agency = "De Lijn";
+            var agency = string.Empty;
+            foreach(var a in feed.Agencies)
+            {
+                agency = a.Name;
+            }
+
             var idLinkTemplate = File.ReadAllText("id-link.html");
 
             var routes = new Dictionary<string, Route>();

@@ -2,7 +2,7 @@
   "profiles": {
     "GTFS2HTML": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\work\\data\\gtfs\\delijn-latest-shapes-new C:\\work\\osmbe\\data\\gtfs\\delijn"
+      "commandLineArgs": "C:\\work\\data\\gtfs\\mivb C:\\work\\osmbe\\data\\gtfs\\mivb"
     }
   }
 }
