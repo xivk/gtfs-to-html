@@ -70,84 +70,84 @@ namespace GTFS2HTML
                 var stopName = stop.Name;
                 stops[stop.Id] = stop;
 
-                //var tripsHtml = string.Empty;
-                //HashSet<string> trips;
-                //if (stopsToTrips.TryGetValue(stop.Id, out trips))
-                //{
-                //    foreach (var trip in trips)
-                //    {
-                //        var filename = FileNameBuilder.MakeValidFileName("trip-" + trip + ".html");
+                var tripsHtml = string.Empty;
+                HashSet<string> trips;
+                if (stopsToTrips.TryGetValue(stop.Id, out trips))
+                {
+                    foreach (var trip in trips)
+                    {
+                        var filename = FileNameBuilder.MakeValidFileName("trip-" + trip + ".html");
 
-                //        var routeName = string.Empty;
-                //        Route route = null;
-                //        var routeId = string.Empty;
-                //        if (routeForTrip.TryGetValue(trip, out routeId) &&
-                //            routes.TryGetValue(routeId, out route))
-                //        {
-                //            routeName = route.LongName;
-                //        }
+                        var routeName = string.Empty;
+                        Route route = null;
+                        var routeId = string.Empty;
+                        if (routeForTrip.TryGetValue(trip, out routeId) &&
+                            routes.TryGetValue(routeId, out route))
+                        {
+                            routeName = route.LongName;
+                        }
 
-                //        tripsHtml = tripsHtml + "<li>" + idLinkTemplate.Replace("{filename}", filename)
-                //            .Replace("{name}", trip)
-                //            .Replace("{description}", trip + " - " + routeName) + "</li>";
-                //    }
-                //}
-                //else
-                //{
-                //    continue;
-                //}
+                        tripsHtml = tripsHtml + "<li>" + idLinkTemplate.Replace("{filename}", filename)
+                            .Replace("{name}", trip)
+                            .Replace("{description}", trip + " - " + routeName) + "</li>";
+                    }
+                }
+                else
+                {
+                    continue;
+                }
 
 
-                //File.WriteAllText(Path.Combine(args[1], FileNameBuilder.MakeValidFileName("stop-" + stop.Id + ".html")),
-                //    stopTemplate.Replace("{lat}", lat)
-                //        .Replace("{lon}", lon)
-                //        .Replace("{stop-name}", stopName)
-                //        .Replace("{agency}", agency)
-                //        .Replace("{trips}", tripsHtml));
+                File.WriteAllText(Path.Combine(args[1], FileNameBuilder.MakeValidFileName("stop-" + stop.Id + ".html")),
+                    stopTemplate.Replace("{lat}", lat)
+                        .Replace("{lon}", lon)
+                        .Replace("{stop-name}", stopName)
+                        .Replace("{agency}", agency)
+                        .Replace("{trips}", tripsHtml));
             }
 
-            //Console.WriteLine("Working on shapes...");
-            //var geoJson = File.ReadAllText("template.geojson");
-            //var id = string.Empty;
-            //var coordinates = string.Empty;
-            //var stopFeatures = string.Empty;
-            //var stopGeoJson = File.ReadAllText("stop.geojson");
-            //foreach (var shape in feed.Shapes)
-            //{
-            //    if (id != shape.Id)
-            //    {
-            //        if (!string.IsNullOrWhiteSpace(coordinates))
-            //        {
-            //            File.WriteAllText(Path.Combine(args[1], id + ".geojson"),
-            //                geoJson.Replace("{coordinates}", coordinates));
-            //        }
+            Console.WriteLine("Working on shapes...");
+            var geoJson = File.ReadAllText("template.geojson");
+            var id = string.Empty;
+            var coordinates = string.Empty;
+            var stopFeatures = string.Empty;
+            var stopGeoJson = File.ReadAllText("stop.geojson");
+            foreach (var shape in feed.Shapes)
+            {
+                if (id != shape.Id)
+                {
+                    if (!string.IsNullOrWhiteSpace(coordinates))
+                    {
+                        File.WriteAllText(Path.Combine(args[1], id + ".geojson"),
+                            geoJson.Replace("{coordinates}", coordinates));
+                    }
 
-            //        Console.WriteLine(string.Format("{0} written", id));
+                    Console.WriteLine(string.Format("{0} written", id));
 
-            //        id = shape.Id;
-            //        coordinates = string.Empty;
-            //        stopFeatures = string.Empty;
-            //    }
+                    id = shape.Id;
+                    coordinates = string.Empty;
+                    stopFeatures = string.Empty;
+                }
 
-            //    var lat = shape.Latitude;
-            //    var lon = shape.Longitude;
+                var lat = shape.Latitude;
+                var lon = shape.Longitude;
 
-            //    var coordinate = string.Format("[{0},{1}]",
-            //        lon.ToInvariantString(), lat.ToInvariantString());
-            //    if (!string.IsNullOrWhiteSpace(coordinates))
-            //    {
-            //        coordinates = coordinates + ",";
-            //    }
-            //    coordinates = coordinates + coordinate;
-            //}
+                var coordinate = string.Format("[{0},{1}]",
+                    lon.ToInvariantString(), lat.ToInvariantString());
+                if (!string.IsNullOrWhiteSpace(coordinates))
+                {
+                    coordinates = coordinates + ",";
+                }
+                coordinates = coordinates + coordinate;
+            }
 
-            //if (!string.IsNullOrWhiteSpace(coordinates))
-            //{
-            //    File.WriteAllText(Path.Combine(args[1], id + ".geojson"),
-            //        geoJson.Replace("{coordinates}", coordinates));
-            //}
+            if (!string.IsNullOrWhiteSpace(coordinates))
+            {
+                File.WriteAllText(Path.Combine(args[1], id + ".geojson"),
+                    geoJson.Replace("{coordinates}", coordinates));
+            }
 
-            //Console.WriteLine(string.Format("{0} written", id));
+            Console.WriteLine(string.Format("{0} written", id));
 
             Console.WriteLine("Doing trips...");
             var tripsPerRoute = new Dictionary<string, List<Trip>>();
@@ -198,14 +198,14 @@ namespace GTFS2HTML
                     routeName = route.LongName;
                 }
 
-                //File.WriteAllText(Path.Combine(args[1], FileNameBuilder.MakeValidFileName("trip-" + trip.Id + ".html")),
-                //tripTemplate.Replace("{lat}", "0")
-                //    .Replace("{lon}", "0")
-                //    .Replace("{trip-id}", trip.Id)
-                //    .Replace("{route-name}", routeName)
-                //    .Replace("{agency}", agency)
-                //    .Replace("{stoptimes}", stopTimesHtml)
-                //    .Replace("{shapefile}", trip.ShapeId + ".geojson"));
+                File.WriteAllText(Path.Combine(args[1], FileNameBuilder.MakeValidFileName("trip-" + trip.Id + ".html")),
+                tripTemplate.Replace("{lat}", "0")
+                    .Replace("{lon}", "0")
+                    .Replace("{trip-id}", trip.Id)
+                    .Replace("{route-name}", routeName)
+                    .Replace("{agency}", agency)
+                    .Replace("{stoptimes}", stopTimesHtml)
+                    .Replace("{shapefile}", trip.ShapeId + ".geojson"));
             }
 
             Console.WriteLine("Doing routes...");
